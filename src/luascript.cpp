@@ -1744,6 +1744,9 @@ void LuaInterface::registerFunctions()
 	//doPlayerSendToChannel(cid, targetId, SpeakClasses, message, channel[, time])
 	lua_register(m_luaState, "doPlayerSendToChannel", LuaInterface::luaDoPlayerSendToChannel);
 
+	//doPlayerOpenChannel(cid, channelId)
+	lua_register(m_luaState, "doPlayerOpenChannel", LuaInterface::luaDoPlayerOpenChannel);
+
 	//doPlayerAddMoney(cid, money)
 	lua_register(m_luaState, "doPlayerAddMoney", LuaInterface::luaDoPlayerAddMoney);
 
