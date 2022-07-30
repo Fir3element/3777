@@ -226,13 +226,14 @@ class Player : public Creature, public Cylinder
 
 		void kickCastViewers()
 		{
-			for(AutoList<ProtocolGame>::iterator it = cSpectators.begin(); it != cSpectators.end(); ++it)
-			{
-				if(it->second->getPlayer() == this)
-				{
+			AutoList<ProtocolGame>::iterator it = cSpectators.begin();
+			while (it != cSpectators.end()) {
+				if (it->second->getPlayer() == this) {
 					it->second->disconnect();
 					it->second->unRef();
-					removeCastViewer(it->first);
+					it = cSpectators.erase(it);
+				} else {
+					++it;
 				}
 			}
 			cast = PlayerCast();
@@ -246,6 +247,7 @@ class Player : public Creature, public Cylinder
 					it->second->disconnect();
 					it->second->unRef();
 					removeCastViewer(it->first);
+					return;
 				}
 		}
 
