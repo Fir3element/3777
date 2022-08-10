@@ -60,6 +60,12 @@ class ProtocolStatus : public Protocol
 		enum {hasChecksum = false};
 		static const char* protocolName() {return "status protocol";}
 
+		uint32_t getUptime() const {return (OTSYS_TIME() - m_start) / 1000;}
+
+		void sendStatusString(bool sendPlayers);
+		void sendInfo(uint16_t requestedInfo, const std::string& characterName);
+
+		static const uint64_t m_start;
 	protected:
 		static IpConnectMap ipConnectMap;
 		virtual void deleteProtocolTask();
@@ -74,9 +80,6 @@ class Status
 			static Status status;
 			return &status;
 		}
-
-		std::string getStatusString(bool sendPlayers) const;
-		void getInfo(uint32_t requestedInfo, OutputMessage_ptr output, NetworkMessage& msg) const;
 
 		uint32_t getUptime() const {return (OTSYS_TIME() - m_start) / 1000;}
 		int64_t getStart() const {return m_start;}
